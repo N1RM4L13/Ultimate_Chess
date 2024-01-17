@@ -5,7 +5,7 @@ Main driver file responsible for handling user input and displaying current Game
 import pygame as p
 from ultimate_chess import chessEngine
 
-WIDTH = HEIGHT = 512
+WIDTH = HEIGHT = 720
 DIMENSION = 8
 SQ_SIZE = HEIGHT // DIMENSION
 MAX_FPS = 15
@@ -50,7 +50,7 @@ def main():
                     sqSelected= (row,col)
                     playerClicks.append(sqSelected)
                 if len(playerClicks) == 2:
-                    move = chessEngine.Move()
+                    move = chessEngine.Move(playerClicks[0], playerClicks[1], game_state.board)
                     print(move.getChessNotation())
                     game_state.makeMove(move)
                     sqSelected=()
