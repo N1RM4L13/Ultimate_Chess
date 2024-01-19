@@ -35,36 +35,33 @@ def main():
     game_state = chessEngine.GameState()
     loadImages()
     running = True
-    sqSelected=()
-    playerClicks=[]
+    sqSelected = ()
+    playerClicks = []
     while running:
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
             elif e.type == p.MOUSEBUTTONDOWN:
                 location = p.mouse.get_pos()
-                col, row = location[0]//SQ_SIZE, location[1]//SQ_SIZE
+                col, row = location[0] // SQ_SIZE, location[1] // SQ_SIZE
                 if sqSelected == (row, col):
                     sqSelected, playerClicks = (), []
                 else:
-                    sqSelected= (row,col)
+                    sqSelected = (row, col)
                     playerClicks.append(sqSelected)
                 if len(playerClicks) == 2:
                     move = chessEngine.Move(playerClicks[0], playerClicks[1], game_state.board)
                     print(move.getChessNotation())
                     game_state.makeMove(move)
-                    sqSelected=()
-                    playerClicks =[]
-
-
-
+                    sqSelected = ()
+                    playerClicks = []
 
         drawGameState(screen, game_state)
         clock.tick(MAX_FPS)
         p.display.flip()
 
 
-def drawGameState(screen, game_state):
+def drawGameState(screen: object, game_state: object) -> object:
     drawBoard(screen)
     drawPieces(screen, game_state.board)
 
@@ -74,7 +71,7 @@ def drawBoard(screen):
     for r in range(DIMENSION):
         for c in range(DIMENSION):
             color = colors[((r + c) % 2)]
-            p.draw.rect(screen, color, p.Rect(c*SQ_SIZE, r*SQ_SIZE, SQ_SIZE, SQ_SIZE))
+            p.draw.rect(screen, color, p.Rect(c * SQ_SIZE, r * SQ_SIZE, SQ_SIZE, SQ_SIZE))
 
 
 def drawPieces(screen, board):
@@ -83,7 +80,6 @@ def drawPieces(screen, board):
             piece = board[row][column]
             if piece != "--":
                 screen.blit(IMAGES[piece], p.Rect(column * SQ_SIZE, row * SQ_SIZE, SQ_SIZE, SQ_SIZE))
-
 
 
 if __name__ == "__main__":
