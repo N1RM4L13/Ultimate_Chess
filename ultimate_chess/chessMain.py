@@ -33,6 +33,8 @@ def main():
     clock = p.time.Clock()
     screen.fill(p.Color("white"))
     game_state = chessEngine.GameState()
+    validMoves= game_state.getValidMoves()
+    moveMade= False
     loadImages()
     running = True
     sqSelected = ()
@@ -52,9 +54,20 @@ def main():
                 if len(playerClicks) == 2:
                     move = chessEngine.Move(playerClicks[0], playerClicks[1], game_state.board)
                     print(move.getChessNotation())
-                    game_state.makeMove(move)
-                    sqSelected = ()
-                    playerClicks = []
+                    if move in validMoves:
+                        game_state.makeMove(move)
+                        moveMade = True
+                        sqSelected = ()
+                        playerClicks = []
+
+            elif e.type == p.KEYDOWN:
+                if e.key == p.K_z: #trigger undo when Z is pressed
+                    game_state.undoMove()
+                    moveMade = True
+
+        if moveMade:
+            validMoves = game_state.getValidMoves()
+            moveMade = False
 
         drawGameState(screen, game_state)
         clock.tick(MAX_FPS)
