@@ -27,7 +27,7 @@ def loadImages():
         IMAGES[piece] = p.transform.scale(p.image.load("images/" + piece + ".png"), (SQUARE_SIZE, SQUARE_SIZE))
 
 
-def main():
+def main(mode=False):
     """
     The main driver for our code.
     This will handle user input and updating the graphics.
@@ -50,7 +50,7 @@ def main():
     move_finder_process = None
     move_log_font = p.font.SysFont("Arial", 14, False, False)
     player_one = True  # if a human is playing white, then this will be True, else False
-    player_two = False  # if a hyman is playing white, then this will be True, else False
+    player_two = mode  # if a human is playing white, then this will be True, else False
 
     while running:
         human_turn = (game_state.white_to_move and player_one) or (not game_state.white_to_move and player_two)
@@ -281,4 +281,9 @@ def animateMove(move, screen, board, clock):
 
 
 if __name__ == "__main__":
-    main()
+    print("-------------------------")
+    mode = input("Enter Mode(PvP or AI) : ")
+    if mode.strip().lower()=="pvp":
+        main(mode=True)
+    else:
+        main()
