@@ -283,7 +283,10 @@ def animateMove(move, screen, board, clock):
 if __name__ == "__main__":
     print("-------------------------")
     mode = input("Enter Mode(PvP or AI) : ")
-    if mode.strip().lower()=="pvp":
-        main(mode=True)
-    else:
+    print("-------------------------")
+    if mode.strip().lower() != "pvp":
+        print("Initialising AI Agent as Opponent")
         main()
+    else:
+        print("Initialising Game in PvP Mode")
+        main(mode=True)
